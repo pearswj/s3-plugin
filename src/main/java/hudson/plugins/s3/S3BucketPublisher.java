@@ -187,24 +187,24 @@ public final class S3BucketPublisher extends Recorder implements Describable<Pub
                       record.put(r.getName(),fp.getHashString());
                    }
                 }
+                
+                // store a list of artifact paths expanded from entry.sourceFile
+                String[] stringPaths = new String[paths.length];
+                for (int i = 0; i < paths.length; i++) {
+                    if (flatten) {
+                        stringPaths[i] = filePath.getName();
+                    } else {
+                        String relativeFileName = filePath.getRemote();
+                        stringPaths[i] = relativeFileName.substring(searchPathLength);
+                    }
+                }
+                entry.paths = stringPaths;
             }
             // don't bother adding actions if none of the artifacts are managed
             if (artifacts.size() > 0) {
                 build.getActions().add(new S3ArtifactsAction(build, profile, artifacts ));
                 build.getActions().add(new FingerprintAction(build,record));
             }
-			
-            // store a list of artifact paths expanded from entry.sourceFile
-            String[] stringPaths = new String[paths.length];
-            for (int i = 0; i < paths.length; i++) {
-                if (flatten) {
-                    stringPaths[i] = filePath.getName();
-                } else {
-                    String relativeFileName = filePath.getRemote();
-                    stringPaths[i] = relativeFileName.substring(searchPathLength);
-                }
-            }
-            entry.paths = stringPaths;
         } catch (IOException e) {
             e.printStackTrace(listener.error("Failed to upload files"));
             build.setResult(Result.UNSTABLE);
