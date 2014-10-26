@@ -192,9 +192,9 @@ public final class S3BucketPublisher extends Recorder implements Describable<Pub
                 String[] stringPaths = new String[paths.length];
                 for (int i = 0; i < paths.length; i++) {
                     if (entry.flatten) {
-                        stringPaths[i] = filePath.getName();
+                        stringPaths[i] = paths[i].getName();
                     } else {
-                        String relativeFileName = filePath.getRemote();
+                        String relativeFileName = paths[i].getRemote();
                         stringPaths[i] = relativeFileName.substring(searchPathLength);
                     }
                 }
