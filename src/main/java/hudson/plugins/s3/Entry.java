@@ -12,6 +12,7 @@ public final class Entry {
      * Can contain macros and wildcards.
      */
     public String sourceFile;
+    public String[] paths;
     /**
      * options for x-amz-storage-class can be STANDARD or REDUCED_REDUNDANCY
      */
