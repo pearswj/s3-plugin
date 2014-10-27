@@ -190,7 +190,7 @@ public final class S3BucketPublisher extends Recorder implements Describable<Pub
                 
                 // store a list of artifact paths expanded from entry.sourceFile
                 String[] stringPaths = new String[paths.length];
-                log(listener.getLogger(), paths.length.toString());
+                log(listener.getLogger(), Integer.toString(paths.length));
                 for (int i = 0; i < paths.length; i++) {
                     log(listener.getLogger(), paths[i].getName());
                     log(listener.getLogger(), paths[i].getRemote());
