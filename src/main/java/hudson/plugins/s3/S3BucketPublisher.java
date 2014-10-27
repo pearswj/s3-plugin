@@ -201,8 +201,10 @@ public final class S3BucketPublisher extends Recorder implements Describable<Pub
                         String relativeFileName = paths[i].getRemote();
                         stringPaths[i] = relativeFileName.substring(searchPathLength);
                     }
+                    log(listener.getLogger(), stringPaths[i]);
                 }
                 entry.paths = stringPaths;
+                log(listener.getLogger(), Arrays.toString(entry.paths));
             }
             // don't bother adding actions if none of the artifacts are managed
             if (artifacts.size() > 0) {
