@@ -27,7 +27,6 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.File;
 import java.io.PrintStream;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -191,21 +190,15 @@ public final class S3BucketPublisher extends Recorder implements Describable<Pub
                 
                 // store a list of artifact paths expanded from entry.sourceFile
                 String[] stringPaths = new String[paths.length];
-                log(listener.getLogger(), Integer.toString(paths.length));
                 for (int i = 0; i < paths.length; i++) {
-                    log(listener.getLogger(), paths[i].getName());
-                    log(listener.getLogger(), paths[i].getRemote());
-                    log(listener.getLogger(), paths[i].getRemote().substring(searchPathLength));
                     if (entry.flatten) {
                         stringPaths[i] = paths[i].getName();
                     } else {
                         String relativeFileName = paths[i].getRemote();
                         stringPaths[i] = relativeFileName.substring(searchPathLength);
                     }
-                    log(listener.getLogger(), stringPaths[i]);
                 }
                 entry.paths = stringPaths;
-                log(listener.getLogger(), Arrays.toString(entry.paths));
             }
             // don't bother adding actions if none of the artifacts are managed
             if (artifacts.size() > 0) {
